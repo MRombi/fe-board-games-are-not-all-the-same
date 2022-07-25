@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import SelectCategory from "./SelectCategory";
+
 const Reviews =  () => {
   const [reviews, setReviews] = useState([])
   useEffect (() => {
@@ -14,7 +16,9 @@ const Reviews =  () => {
     }
   
   return (
+
     <div>
+      <SelectCategory/>
       {reviews.map(review => {
        return (
         <div className="reviews" key={review.review_id}>
