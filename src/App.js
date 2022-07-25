@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from "react";
+// import { useState } from "react";
+// import { UserContext } 
 
-function App() {
+import Header from "./components/Header"
+import Navigation from "./components/Navigation";
+import Reviews from "./components/Home"
+import Home from "./components/Reviews"
+import Review from "./components/Review";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Navigation />
+        <Routes>
+          <Route path="/reviews" element={<Home/>} />
+          <Route path="/" element={<Reviews/>} />
+          <Route path="/reviews/:review_id" element={<Review/>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
