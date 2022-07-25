@@ -2,23 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default function SelectCategory() {
-  const [categories, setCategories] = useState([]);
-  const [term, setTerm] = useState("");
+export default function SelectCategory({categories, setTerm}) {
+  
+
   useEffect(() => {
-    fetchCategories();
   }, []);
 
-  const fetchCategories = async () => {
-    const data = await axios.get(
-      `https://board-games-are-not-the-sames.herokuapp.com/api/categories`
-    );
-    setCategories(data.data.categories);
-  };
-  console.log(term);
+  
+
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(event);
+    setTerm("")
   }
   return (
     <form className="SelectCategory" onSubmit={handleSubmit}>
@@ -32,7 +26,7 @@ export default function SelectCategory() {
       >
         <option value="">--Please choose an option--</option>
         {categories.map((category) => {
-          return <option value={category.slug}>{category.slug}</option>;
+          return <option value={category.slug} key={category.slug}>{category.slug}</option>;
         })}
       </select>
     </form>
