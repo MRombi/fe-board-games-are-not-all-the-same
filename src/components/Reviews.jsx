@@ -18,18 +18,14 @@ const Reviews = () => {
 
   const fetchReviews = async () => {
     const data = await axios.get(
-      `https://board-games-are-not-the-sames.herokuapp.com/api/reviews`
+      `https://board-games-are-not-the-sames.herokuapp.com/api/reviews`,
+      {
+        params: {
+          category: term,
+        },
+      }
     );
-
-    setReviews(
-      data.data.reviews.filter((review) => {
-        if (term) {
-          return review.category === term;
-        } else {
-          return review;
-        }
-      })
-    );
+    setReviews(data.data.reviews);
   };
   const fetchCategories = async () => {
     const data = await axios.get(

@@ -20,7 +20,7 @@ export default function SelectCategory({
         {categories.map((category) => {
           return (
             <option value={category.slug} key={category.slug}>
-              {category.slug}
+              {category.slug[0].toUpperCase() + category.slug.slice(1)}
             </option>
           );
         })}
