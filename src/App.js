@@ -2,7 +2,6 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, useSearchParams } from "react-router-dom";
 import React from "react";
 import { useState } from "react";
-// import { UserContext } 
 
 import Header from "./components/Header"
 import Navigation from "./components/Navigation";
@@ -11,8 +10,7 @@ import Home from "./components/Home"
 import Review from "./components/Review";
 
 
-const App = (props) => {
-  console.log(props);
+const App = () => {
   return (
     <BrowserRouter>
       <div className="App">
