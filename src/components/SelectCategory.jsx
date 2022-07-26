@@ -1,38 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React from "react";
 
-export default function SelectCategory() {
-  const [categories, setCategories] = useState([]);
-  const [term, setTerm] = useState("");
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
-    const data = await axios.get(
-      `https://board-games-are-not-the-sames.herokuapp.com/api/categories`
-    );
-    setCategories(data.data.categories);
-  };
-  console.log(term);
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log(event);
-  }
+export default function SelectCategory({
+  categories,
+  setTerm,
+  setIsLoading
+}) {
+ 
   return (
-    <form className="SelectCategory" onSubmit={handleSubmit}>
-      <label htmlFor="category-select">Choose category: </label>
+    <form className="SelectCategory">
+      <label htmlFor="category-select">Choose a category: </label>
+
       <select
         name="category"
         id="category-select"
         onChange={(event) => {
           setTerm(event.target.value);
+          setIsLoading(true)
         }}
       >
-        <option value="">--Please choose an option--</option>
+        <option value="">--All the Categories--</option>
         {categories.map((category) => {
-          return <option value={category.slug}>{category.slug}</option>;
+          return (
+            <option value={category.slug} key={category.slug}>
+              {category.slug[0].toUpperCase() + category.slug.slice(1)}
+            </option>
+          );
         })}
       </select>
     </form>
