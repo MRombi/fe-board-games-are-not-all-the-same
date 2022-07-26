@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 import SelectCategory from "./SelectCategory";
 
 const Reviews = () => {
+  let [searchParams, setSearchParams] = useSearchParams();
   const [reviews, setReviews] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [term, setTerm] = useState("strategy");
+  const [term, setTerm] = useState("" || searchParams.get("category"));
+
   useEffect(() => {
     fetchReviews();
     fetchCategories();
+    setSearchParams(`category=${term}`);
   }, [term]);
 
   const fetchReviews = async () => {
     const data = await axios.get(
       `https://board-games-are-not-the-sames.herokuapp.com/api/reviews`
     );
+
     setReviews(
       data.data.reviews.filter((review) => {
-        return review.category === term;
+        if (term) {
+          return review.category === term;
+        } else {
+          return review;
+        }
       })
     );
   };
@@ -43,7 +51,6 @@ const Reviews = () => {
             >
               <h4>{review.title}</h4>
             </Link>
-
             <img className="images" src={review.review_img_url} />
           </div>
         );
