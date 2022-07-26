@@ -8,12 +8,15 @@ const Reviews = () => {
   let [searchParams, setSearchParams] = useSearchParams();
   const [reviews, setReviews] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [term, setTerm] = useState("" || searchParams.get("category"));
+  const [term, setTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     fetchReviews();
     fetchCategories();
-    setSearchParams(`category=${term}`);
+    if (term) {
+      setSearchParams(`category=${term}`);
+    } else setSearchParams(`${term}`);
   }, [term]);
 
   const fetchReviews = async () => {
@@ -26,6 +29,7 @@ const Reviews = () => {
       }
     );
     setReviews(data.data.reviews);
+    setIsLoading(false)
   };
   const fetchCategories = async () => {
     const data = await axios.get(
@@ -34,8 +38,11 @@ const Reviews = () => {
     setCategories(data.data.categories);
   };
   return (
+    
     <div>
-      <SelectCategory setTerm={setTerm} categories={categories} />
+      
+      <SelectCategory setTerm={setTerm} categories={categories} setIsLoading={setIsLoading} />
+      { isLoading && <h3 className="loading">Loading...</h3> }
       {reviews.map((review) => {
         return (
           <div className="reviews" key={review.review_id}>
@@ -47,7 +54,18 @@ const Reviews = () => {
             >
               <h4>{review.title}</h4>
             </Link>
-            <img className="images" src={review.review_img_url} />
+            <img className="images" alt={review.title}src={review.review_img_url} />
+            <div className="reviews-data">
+              <time dateTime={review.created_at}>
+                Created the{" "}
+                {review.created_at.slice(0, 10).split("-").reverse().join("-")}
+                {` at ${review.created_at.slice(11, 16)}`}
+              </time>
+              <ul>
+                <li>Comment Count: {review.comment_count}</li>
+                <li>Votes: {review.votes}</li>
+              </ul>
+            </div>
           </div>
         );
       })}

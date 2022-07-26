@@ -3,6 +3,7 @@ import React from "react";
 export default function SelectCategory({
   categories,
   setTerm,
+  setIsLoading
 }) {
  
   return (
@@ -14,6 +15,7 @@ export default function SelectCategory({
         id="category-select"
         onChange={(event) => {
           setTerm(event.target.value);
+          setIsLoading(true)
         }}
       >
         <option value="">--All the Categories--</option>
