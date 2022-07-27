@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, NavLink } from "react-router-dom";
 import axios from "axios";
 
 import SelectCategory from "./SelectCategory";
@@ -9,7 +9,8 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [categories, setCategories] = useState([]);
   const [term, setTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+  const [votes, setVotes] = useState(0);
 
   useEffect(() => {
     fetchReviews();
@@ -29,7 +30,7 @@ const Reviews = () => {
       }
     );
     setReviews(data.data.reviews);
-    setIsLoading(false)
+    setIsLoading(false);
   };
   const fetchCategories = async () => {
     const data = await axios.get(
@@ -38,23 +39,29 @@ const Reviews = () => {
     setCategories(data.data.categories);
   };
   return (
-    
     <div>
-      
-      <SelectCategory setTerm={setTerm} categories={categories} setIsLoading={setIsLoading} />
-      { isLoading && <h3 className="loading">Loading...</h3> }
+      <SelectCategory
+        setTerm={setTerm}
+        categories={categories}
+        setIsLoading={setIsLoading}
+      />
+      {isLoading && <h3 className="loading">Loading...</h3>}
       {reviews.map((review) => {
         return (
           <div className="reviews" key={review.review_id}>
             <Link
               to={{
                 pathname: `/reviews/${review.review_id}`,
-                state: { review },
               }}
+              state={{ votes: votes }}
             >
               <h4>{review.title}</h4>
             </Link>
-            <img className="images" alt={review.title}src={review.review_img_url} />
+            <img
+              className="images"
+              alt={review.title}
+              src={review.review_img_url}
+            />
             <div className="reviews-data">
               <time dateTime={review.created_at}>
                 Created the{" "}
