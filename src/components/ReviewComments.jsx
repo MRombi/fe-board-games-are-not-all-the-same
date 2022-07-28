@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams, useLocation } from "react-router-dom";
-import CommentForm from "./CommentForm";
+
 
 const ReviewComments = () => {
   const [comments, setComments] = useState([]);
@@ -27,7 +27,7 @@ const ReviewComments = () => {
           <div className="review-comments-container">
             {" "}
             <div>
-              <p>Comments</p>
+              <p>Comments:</p>
             </div>
             {comments.map((comment) => {
               return (
@@ -43,7 +43,7 @@ const ReviewComments = () => {
           </div>
         )}
       </div>
-      <CommentForm/>
+     
     </div>
   );
 };

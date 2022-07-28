@@ -3,8 +3,6 @@ import axios from "axios";
 import { Link, useParams, useLocation } from "react-router-dom";
 import ReviewComments from "./ReviewComments";
 
-import { useParams } from "react-router-dom";
-
 const Review = () => {
   const [review, setReview] = useState([]);
   const [votes, setVotes] = useState();
@@ -24,38 +22,38 @@ const Review = () => {
     setVotes(data.data.review.votes);
   };
 
-  const handleVoteIncrease = () => {
-    setVotes((currVotes) => {
-      if (!hasUpvoted) {
-        setHasUpvoted(true);
-        setHasDownvoted(false);
-        const data = axios.patch(
-          `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}`,
-          { inc_votes: 1 }
-        );
-        return currVotes + 1;
-      } else {
-        alert("You have already Upvoted");
-        return currVotes;
-      }
-    });
-  };
-
-  const handleVoteDecrease = () => {
-    setVotes((currVotes) => {
-      if (!hasDownvoted) {
-        setHasDownvoted(true);
-        setHasUpvoted(false);
-        const data = axios.patch(
-          `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}`,
-          { inc_votes: -1 }
-        );
-        return currVotes - 1;
-      } else {
-        alert("You have already Downvoted");
-        return currVotes;
-      }
-    });
+  const handleVote = (e) => {
+    if (e.target.innerText === "Upvote") {
+      setVotes((currVotes) => {
+        if (!hasUpvoted) {
+          setHasDownvoted(false);
+          setHasUpvoted(true);
+          const data = axios.patch(
+            `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}`,
+            { inc_votes: 1 }
+          );
+          return currVotes + 1;
+        } else {
+          alert("You have already Upvoted");
+          return currVotes;
+        }
+      });
+    } else {
+      setVotes((currVotes) => {
+        if (!hasDownvoted) {
+          setHasUpvoted(false);
+          setHasDownvoted(true);
+          const data = axios.patch(
+            `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}`,
+            { inc_votes: -1 }
+          );
+          return currVotes - 1;
+        } else {
+          alert("You have already Downvoted");
+          return currVotes;
+        }
+      });
+    }
   };
 
   return (
@@ -74,10 +72,10 @@ const Review = () => {
           </div>
           <div className="review-votes-container">
             Votes: {votes}{" "}
-            <button className="button-increase" onClick={handleVoteIncrease}>
+            <button className="button-increase" onClick={handleVote}>
               Upvote
             </button>{" "}
-            <button className="button-decrease" onClick={handleVoteDecrease}>
+            <button className="button-decrease" onClick={handleVote}>
               Downvote
             </button>
           </div>
