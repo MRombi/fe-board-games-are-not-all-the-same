@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams, useLocation } from "react-router-dom";
-
+import CommentForm from "./CommentForm";
 
 const ReviewComments = () => {
   const [comments, setComments] = useState([]);
@@ -9,7 +9,7 @@ const ReviewComments = () => {
 
   useEffect(() => {
     fetchCommentsByReview();
-  }, []);
+  }, [comments]);
   const fetchCommentsByReview = async () => {
     const data = await axios.get(
       `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}/comments`
@@ -43,7 +43,7 @@ const ReviewComments = () => {
           </div>
         )}
       </div>
-     
+     <CommentForm setComments={setComments}/>
     </div>
   );
 };
