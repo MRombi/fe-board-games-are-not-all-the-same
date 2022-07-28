@@ -6,8 +6,6 @@ import ReviewComments from "./ReviewComments";
 const Review = () => {
   const [review, setReview] = useState([]);
   const [votes, setVotes] = useState();
-  const [hasUpvoted, setHasUpvoted] = useState(false);
-  const [hasDownvoted, setHasDownvoted] = useState(false);
 
   let id = useParams().review_id;
   useEffect(() => {
@@ -23,37 +21,15 @@ const Review = () => {
   };
 
   const handleVote = (e) => {
-    if (e.target.innerText === "Upvote") {
-      setVotes((currVotes) => {
-        if (!hasUpvoted) {
-          setHasDownvoted(false);
-          setHasUpvoted(true);
-          const data = axios.patch(
-            `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}`,
-            { inc_votes: 1 }
-          );
-          return currVotes + 1;
-        } else {
-          alert("You have already Upvoted");
-          return currVotes;
-        }
-      });
-    } else {
-      setVotes((currVotes) => {
-        if (!hasDownvoted) {
-          setHasUpvoted(false);
-          setHasDownvoted(true);
-          const data = axios.patch(
-            `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}`,
-            { inc_votes: -1 }
-          );
-          return currVotes - 1;
-        } else {
-          alert("You have already Downvoted");
-          return currVotes;
-        }
-      });
-    }
+    e.target.className = "button-disappear";
+    let vote = e.target.value;
+    setVotes((currVotes) => {
+      const data = axios.patch(
+        `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}`,
+        { inc_votes: vote }
+      );
+      return currVotes + Number(vote);
+    });
   };
 
   return (
@@ -72,10 +48,10 @@ const Review = () => {
           </div>
           <div className="review-votes-container">
             Votes: {votes}{" "}
-            <button className="button-increase" onClick={handleVote}>
+            <button value={1} className="button-increase" onClick={handleVote}>
               Upvote
             </button>{" "}
-            <button className="button-decrease" onClick={handleVote}>
+            <button value={-1} className="button-decrease" onClick={handleVote}>
               Downvote
             </button>
           </div>
