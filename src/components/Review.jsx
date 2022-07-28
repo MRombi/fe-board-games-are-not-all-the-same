@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams, useLocation } from "react-router-dom";
+import ReviewComments from "./ReviewComments";
+
 
 const Review = () => {
-  // const stateParam = useLocation()
-  // const stateParamVal = useLocation.state
-  console.log(useLocation());
-  // let location = useLocation()
-
-  // console.log(location);
   const [review, setReview] = useState([]);
  
   let id = useParams().review_id;
@@ -43,6 +39,7 @@ const Review = () => {
           {review.review_body}
           </p>
         </div>
+        <ReviewComments />
       </article>
     </div>
   );
