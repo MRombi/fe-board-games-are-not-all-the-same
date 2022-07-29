@@ -29,13 +29,15 @@ const ReviewComments = () => {
             <div>
               <p>Comments:</p>
             </div>
-            {comments.map((comment) => {
-              return (
-                <ul>
-                  <li className="review-comment-li">{comment.body}</li>
-                </ul>
-              );
-            })}
+            <ul>
+              {comments.map((comment) => {
+                return (
+                  <li key={comment.comment_id} className="review-comment-li">
+                    {comment.body}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         ) : (
           <div className="review-comments-container">
@@ -43,7 +45,7 @@ const ReviewComments = () => {
           </div>
         )}
       </div>
-     <CommentForm setComments={setComments}/>
+      <CommentForm setComments={setComments} />
     </div>
   );
 };
