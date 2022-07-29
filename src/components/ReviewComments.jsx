@@ -5,16 +5,32 @@ import CommentForm from "./CommentForm";
 
 const ReviewComments = () => {
   const [comments, setComments] = useState([]);
+  const [selected, setSelected] = useState([]);
   let id = useParams().review_id;
 
   useEffect(() => {
     fetchCommentsByReview();
+    handleDelete();
   }, []);
   const fetchCommentsByReview = async () => {
     const data = await axios.get(
       `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}/comments`
     );
     setComments(data.data.comments.reverse());
+  };
+  
+  const handleDelete = () => {
+    selected.forEach((comment_id) => {
+      const data = axios.delete(
+        `https://board-games-are-not-the-sames.herokuapp.com/api/comments/${comment_id}`
+      );
+      setComments((prevComments) => {
+        return prevComments.filter((comment) => {
+          return comment.comment_id !== comment_id;
+        });
+      });
+    });
+    setSelected([]);
   };
 
   return (
@@ -28,10 +44,23 @@ const ReviewComments = () => {
             <div>
               <p>Comments:</p>
             </div>
+            <div className="delete-comments-button">
+              <button onClick={handleDelete}>Delete Selected Comments</button>
+            </div>
             <ul>
               {comments.map((comment) => {
                 return (
                   <li key={comment.comment_id} className="review-comment-li">
+                    <input
+                      type="checkbox"
+                      onClick={() => {
+                        setSelected((prevSelected) => {
+                          if (prevSelected.length > 0) {
+                            return [comment.comment_id, ...prevSelected];
+                          } else return [comment.comment_id];
+                        });
+                      }}
+                    ></input>
                     {comment.body}
                   </li>
                 );
