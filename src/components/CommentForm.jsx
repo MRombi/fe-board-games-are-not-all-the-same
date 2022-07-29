@@ -16,16 +16,18 @@ const CommentForm = ({ comments, setComments }) => {
       `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}/comments`,
       { username: `${username}`, body: `${comment}` }
     );
-    setComments((prevComments) => {
-      const newComment = {
-        comment_id: prevComments[0].comment_id + 1,
-        body: comment,
-        review_id: prevComments[0].review_id,
-        author: username,
-        votes: 0,
-      };
-      return [newComment, ...prevComments];
-    });
+    const newComment = {
+      comment_id: data.data.comment.comment_id,
+      body: comment,
+      review_id: id,
+      author: username,
+      votes: 0,
+    };
+    if (comments.length > 0) {
+      setComments((prevComments) => {
+        return [newComment, ...prevComments];
+      });
+    } else setComments([newComment]);
   };
 
   return (

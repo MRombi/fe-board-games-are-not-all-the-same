@@ -23,7 +23,6 @@ const Review = () => {
   const handleVote = (e) => {
     e.target.disabled = true;
     let vote = e.target.value;
-
     setVotes((currVotes) => {
       const data = axios.patch(
         `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}`,
