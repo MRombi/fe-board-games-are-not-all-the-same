@@ -9,13 +9,13 @@ const ReviewComments = () => {
 
   useEffect(() => {
     fetchCommentsByReview();
-  }, [comments]);
+  }, []);
   const fetchCommentsByReview = async () => {
     const data = await axios.get(
       `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}/comments`
     );
 
-    setComments(data.data.comments);
+    setComments(data.data.comments.reverse());
   };
 
   return (
@@ -45,7 +45,7 @@ const ReviewComments = () => {
           </div>
         )}
       </div>
-      <CommentForm setComments={setComments} />
+      <CommentForm comments={comments} setComments={setComments} />
     </div>
   );
 };

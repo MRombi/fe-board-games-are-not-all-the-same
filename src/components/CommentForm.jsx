@@ -3,24 +3,29 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "./context/User";
 
-const CommentForm = ({ setComments }) => {
+const CommentForm = ({ comments, setComments }) => {
   const [comment, setComment] = useState("");
-  const {username, setUsername }= useContext(UserContext);
+  const { username, setUsername } = useContext(UserContext);
 
   let id = useParams().review_id;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setComment("")
+    setComment("");
+
     const data = await axios.post(
       `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}/comments`,
       { username: `${username}`, body: `${comment}` }
     );
     setComments((prevComments) => {
-      return [comment,...prevComments]
+      const newComment = {
+        comment_id: prevComments[0].comment_id + 1,
+        body: comment,
+        review_id: prevComments[0].review_id,
+        author: username,
+        votes: 0,
+      };
+      return [newComment, ...prevComments];
     });
-    
-    
   };
 
   return (

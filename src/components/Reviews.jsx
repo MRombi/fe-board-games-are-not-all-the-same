@@ -3,6 +3,7 @@ import { Link, useSearchParams, NavLink } from "react-router-dom";
 import axios from "axios";
 
 import SelectCategory from "./SelectCategory";
+import SortReviews from "./SortReviews";
 
 const Reviews = () => {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -11,14 +12,17 @@ const Reviews = () => {
   const [term, setTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [votes, setVotes] = useState(0);
+  const [sortBy, setSortBy] = useState("created_at")
+  const [order, setOrder] = useState("DESC");
 
+  console.log(sortBy);
   useEffect(() => {
     fetchReviews();
     fetchCategories();
     if (term) {
-      setSearchParams(`category=${term}`);
-    } else setSearchParams(`${term}`);
-  }, [term]);
+      setSearchParams(`category=${term}&sort_by=${sortBy}&order=${order}`);
+    } else setSearchParams(`${term}&sort_by=${sortBy}&order=${order}`);
+  }, [term, sortBy, order]);
 
   const fetchReviews = async () => {
     const data = await axios.get(
@@ -26,6 +30,8 @@ const Reviews = () => {
       {
         params: {
           category: term,
+          sort_by: sortBy,
+          order: order
         },
       }
     );
@@ -45,6 +51,7 @@ const Reviews = () => {
         categories={categories}
         setIsLoading={setIsLoading}
       />
+      <SortReviews setIsLoading={setIsLoading} setSortBy={setSortBy} setOrder={setOrder}/>
       {isLoading && <h3 className="loading">Loading...</h3>}
       {reviews.map((review) => {
         return (
