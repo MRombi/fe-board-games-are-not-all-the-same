@@ -12,7 +12,7 @@ const Reviews = () => {
   const [term, setTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [votes, setVotes] = useState(0);
-  const [sortBy, setSortBy] = useState("created_at")
+  const [sortBy, setSortBy] = useState("created_at");
   const [order, setOrder] = useState("DESC");
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Reviews = () => {
         params: {
           category: term,
           sort_by: sortBy,
-          order: order
+          order: order,
         },
       }
     );
@@ -50,7 +50,11 @@ const Reviews = () => {
         categories={categories}
         setIsLoading={setIsLoading}
       />
-      <SortReviews setIsLoading={setIsLoading} setSortBy={setSortBy} setOrder={setOrder}/>
+      <SortReviews
+        setIsLoading={setIsLoading}
+        setSortBy={setSortBy}
+        setOrder={setOrder}
+      />
       {isLoading && <h3 className="loading">Loading...</h3>}
       {reviews.map((review) => {
         return (

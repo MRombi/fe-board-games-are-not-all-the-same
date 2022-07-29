@@ -14,7 +14,6 @@ const ReviewComments = () => {
     const data = await axios.get(
       `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}/comments`
     );
-
     setComments(data.data.comments.reverse());
   };
 

@@ -1,6 +1,5 @@
 const SortReviews = ({ setSortBy, setIsLoading, setOrder }) => {
   const options = ["created_at", "votes", "comment_count"];
-  const orderedBy = ["DESC", "ASC"];
 
   return (
     <form className="sort-reviews">
@@ -13,13 +12,9 @@ const SortReviews = ({ setSortBy, setIsLoading, setOrder }) => {
           setIsLoading(true);
         }}
       >
-        {options.map((option) => {
-          return (
-            <option value={option} key={option}>
-              {option}
-            </option>
-          );
-        })}
+        <option value={options[0]}>Date of Creation</option>
+        <option value={options[1]}>Vote Count</option>
+        <option value={options[2]}>Comment Count</option>
       </select>
       <label htmlFor="order-select">Order By: </label>
       <select
@@ -30,12 +25,8 @@ const SortReviews = ({ setSortBy, setIsLoading, setOrder }) => {
           setIsLoading(true);
         }}
       >
-            <option value="DESC">
-              Descending
-            </option>
-            <option value="ASC">
-              Ascending
-            </option>
+        <option value="DESC">Descending</option>
+        <option value="ASC">Ascending</option>
       </select>
     </form>
   );

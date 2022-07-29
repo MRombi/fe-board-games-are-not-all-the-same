@@ -1,21 +1,15 @@
 import React from "react";
 
-export default function SelectCategory({
-  categories,
-  setTerm,
-  setIsLoading
-}) {
- 
+export default function SelectCategory({ categories, setTerm, setIsLoading }) {
   return (
     <form className="SelectCategory">
       <label htmlFor="category-select">Choose a category: </label>
-
       <select
         name="category"
         id="category-select"
         onChange={(event) => {
           setTerm(event.target.value);
-          setIsLoading(true)
+          setIsLoading(true);
         }}
       >
         <option value="">--All the Categories--</option>
