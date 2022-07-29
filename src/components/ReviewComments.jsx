@@ -55,9 +55,7 @@ const ReviewComments = () => {
                       type="checkbox"
                       onClick={() => {
                         setSelected((prevSelected) => {
-                          if (prevSelected.length > 0) {
                             return [comment.comment_id, ...prevSelected];
-                          } else return [comment.comment_id];
                         });
                       }}
                     ></input>

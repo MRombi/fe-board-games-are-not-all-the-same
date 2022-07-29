@@ -6,12 +6,11 @@ import { UserContext } from "./context/User";
 const CommentForm = ({ comments, setComments }) => {
   const [comment, setComment] = useState("");
   const { username, setUsername } = useContext(UserContext);
-
   let id = useParams().review_id;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setComment("");
-
     const data = await axios.post(
       `https://board-games-are-not-the-sames.herokuapp.com/api/reviews/${id}/comments`,
       { username: `${username}`, body: `${comment}` }
@@ -23,11 +22,9 @@ const CommentForm = ({ comments, setComments }) => {
       author: username,
       votes: 0,
     };
-    if (comments.length > 0) {
       setComments((prevComments) => {
         return [newComment, ...prevComments];
       });
-    } else setComments([newComment]);
   };
 
   return (
