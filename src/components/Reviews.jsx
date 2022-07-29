@@ -15,7 +15,6 @@ const Reviews = () => {
   const [sortBy, setSortBy] = useState("created_at")
   const [order, setOrder] = useState("DESC");
 
-  console.log(sortBy);
   useEffect(() => {
     fetchReviews();
     fetchCategories();

@@ -30,13 +30,12 @@ const SortReviews = ({ setSortBy, setIsLoading, setOrder }) => {
           setIsLoading(true);
         }}
       >
-        {orderedBy.map((order) => {
-          return (
-            <option value={order} key={order}>
-              {order}
+            <option value="DESC">
+              Descending
             </option>
-          );
-        })}
+            <option value="ASC">
+              Ascending
+            </option>
       </select>
     </form>
   );
