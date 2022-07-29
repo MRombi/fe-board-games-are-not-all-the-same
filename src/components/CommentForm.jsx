@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "./context/User";
 
@@ -22,9 +22,9 @@ const CommentForm = ({ comments, setComments }) => {
       author: username,
       votes: 0,
     };
-      setComments((prevComments) => {
-        return [newComment, ...prevComments];
-      });
+    setComments((prevComments) => {
+      return [newComment, ...prevComments];
+    });
   };
 
   return (

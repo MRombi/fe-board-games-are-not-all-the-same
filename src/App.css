@@ -1,6 +1,9 @@
 * {
   margin: 0px;
   padding: 0px;
+  list-style: none;
+
+
 }
 
 .App {
@@ -13,6 +16,17 @@
   }
 } */
 
+.reviews {
+  margin: 1rem;
+  background-color: rgb(136, 136, 196);
+  border: 0.4rem solid black;
+}
+
+.reviews-data {
+  background-color: rgb(136, 136, 196);
+  color: rgb(245, 243, 241);
+  margin-top: 0.2rem;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -27,12 +41,11 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: rgb(154, 154, 219);
+  background: rgb(136, 136, 196);
   min-height: 3rem;
 }
 
 .navigation-links {
-  list-style: none;
   width: 40%;
   display: flex;
   justify-content: space-around;
@@ -40,8 +53,9 @@
 }
 
 .images {
-  width: 200px;
-  height: 200px;
+  width: 60%;
+  height: 70%;
+  padding-top: 2%;
 }
 
 .review-comments-container {
@@ -53,4 +67,27 @@
   margin: 1rem;
   font-size: 1.1rem;
   color: black;
+}
+
+.avatar {
+  padding: 3rem;
+  width: 15rem;
+  height: 12rem;
+  border: 0.4rem solid black;
+}
+
+.home-container {
+  padding: 2rem;
+}
+
+.prolific {
+  padding-top: 2.5rem;
+}
+
+.comment-list {
+  text-align: left;
+  margin-left: 0.5rem;
+}
+.checkbox {
+  margin-right: 0.4rem;
 }

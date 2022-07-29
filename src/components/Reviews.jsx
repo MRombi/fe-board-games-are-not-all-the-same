@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useSearchParams, NavLink } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 import SelectCategory from "./SelectCategory";
@@ -44,7 +44,7 @@ const Reviews = () => {
     setCategories(data.data.categories);
   };
   return (
-    <div>
+    <div className="reviews-container">
       <SelectCategory
         setTerm={setTerm}
         categories={categories}
@@ -56,6 +56,7 @@ const Reviews = () => {
         setOrder={setOrder}
       />
       {isLoading && <h3 className="loading">Loading...</h3>}
+
       {reviews.map((review) => {
         return (
           <div className="reviews" key={review.review_id}>
@@ -65,7 +66,7 @@ const Reviews = () => {
               }}
               state={{ votes: votes }}
             >
-              <h4>{review.title}</h4>
+              <h4 className="reviews-data">{review.title}</h4>
             </Link>
             <img
               className="images"
@@ -73,14 +74,14 @@ const Reviews = () => {
               src={review.review_img_url}
             />
             <div className="reviews-data">
-              <time dateTime={review.created_at}>
+              <time className="reviews-data" dateTime={review.created_at}>
                 Created the{" "}
                 {review.created_at.slice(0, 10).split("-").reverse().join("-")}
                 {` at ${review.created_at.slice(11, 16)}`}
               </time>
               <ul>
-                <li>Comment Count: {review.comment_count}</li>
-                <li>Votes: {review.votes}</li>
+                <li className="reviews-data">Comment Count: {review.comment_count}</li>
+                <li className="reviews-data">Votes: {review.votes}</li>
               </ul>
             </div>
           </div>
