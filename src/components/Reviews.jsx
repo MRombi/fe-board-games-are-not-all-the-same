@@ -44,7 +44,7 @@ const Reviews = () => {
     setCategories(data.data.categories);
   };
   return (
-    <div className="reviews-container">
+    <div className="page-container">
       <SelectCategory
         setTerm={setTerm}
         categories={categories}
@@ -56,7 +56,7 @@ const Reviews = () => {
         setOrder={setOrder}
       />
       {isLoading && <h3 className="loading">Loading...</h3>}
-
+      <div className="reviews-container">
       {reviews.map((review) => {
         return (
           <div className="reviews" key={review.review_id}>
@@ -87,6 +87,7 @@ const Reviews = () => {
           </div>
         );
       })}
+      </div>
     </div>
   );
 };

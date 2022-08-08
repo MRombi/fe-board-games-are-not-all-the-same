@@ -2,6 +2,7 @@ const SortReviews = ({ setSortBy, setIsLoading, setOrder }) => {
   const options = ["created_at", "votes", "comment_count"];
 
   return (
+    <div className="select-container">
     <form className="sort-reviews">
       <label htmlFor="category-sort">Sort By: </label>
       <select
@@ -16,6 +17,8 @@ const SortReviews = ({ setSortBy, setIsLoading, setOrder }) => {
         <option value={options[1]}>Vote Count</option>
         <option value={options[2]}>Comment Count</option>
       </select>
+      </form>
+      <form className="sort-reviews">
       <label htmlFor="order-select">Order By: </label>
       <select
         name="order-by"
@@ -28,7 +31,8 @@ const SortReviews = ({ setSortBy, setIsLoading, setOrder }) => {
         <option value="DESC">Descending</option>
         <option value="ASC">Ascending</option>
       </select>
-    </form>
+      </form>
+      </div>
   );
 };
 
