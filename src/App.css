@@ -16,17 +16,37 @@
   }
   .reviews {
     padding: none;
-    margin: none; 
+    margin: none;
     background-color: rgb(136, 136, 196);
     border: 0.4rem solid black;
     height: 25rem;
   }
 }
 
+@media (min-width: 750px) {
+  .home-container {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 45% 45% 10%;
+  }
+}
+
+.avatar {
+  padding: 3rem;
+  width: 50%;
+  height: 45%;
+  border: 0.4rem solid black;
+}
+
 .reviews {
   margin: 1rem;
   background-color: rgb(136, 136, 196);
   border: 0.4rem solid black;
+}
+
+header {
+  padding-top: 1rem;
+  background-color:rgb(136, 136, 196)
 }
 
 .reviews-data {
@@ -76,12 +96,6 @@
   color: black;
 }
 
-.avatar {
-  padding: 3rem;
-  width: 15rem;
-  height: 12rem;
-  border: 0.4rem solid black;
-}
 .select-container {
   display: grid;
   grid-template-columns: 50% 50%;
